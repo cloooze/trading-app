@@ -1,0 +1,17 @@
+spring:
+  profiles: test
+  application:
+    name: trading-app
+   
+server:
+  port: 8080
+  
+---
+
+spring:
+  profiles: prod
+  application:
+    name: trading-app
+   
+server:
+  port: 8081
