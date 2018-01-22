@@ -26,6 +26,7 @@ import com.trading.app.domain.RestErrorInfo;
 import com.trading.app.exception.DataFormatException;
 import com.trading.app.exception.ResourceNotFoundException;
 import com.trading.app.service.CoinService;
+import com.trading.app.service.ServiceProperties;
 
 @RestController
 @RequestMapping("/rest/db/")
@@ -35,6 +36,9 @@ public class Controller {
 			
 	@Autowired
 	CoinService service;
+	
+	@Autowired
+	ServiceProperties serviceProperties;
 	
 	@GetMapping(value = "/get/{name}")
 	public Coin get(@PathVariable final String name) {
@@ -51,11 +55,11 @@ public class Controller {
 	
 	@GetMapping(value = "/getAll")
 	public List<Coin> getAll() {
-		log.info("getAll invocato");
 //		return service.findAll()
 //				.stream()
 //				.map(coin -> coin.getName())
 //				.collect(Collectors.toList());
+		log.info("ENVIRONMENT=" + serviceProperties.getName());
 		return service.findAll();
 	}
 	
