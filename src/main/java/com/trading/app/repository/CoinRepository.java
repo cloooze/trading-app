@@ -2,13 +2,13 @@ package com.trading.app.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.trading.app.entity.CoinEntity;
+import com.trading.app.entity.Coin;
 
-public interface CoinRepository extends JpaRepository<CoinEntity, Long> {
+public interface CoinRepository extends JpaRepository<Coin, Long> {
 
-    CoinEntity save(CoinEntity cointEntity);
+    Coin save(Coin cointEntity);
 
-    CoinEntity findByName(String name);
+    Coin findByName(String name);
 
 }
 

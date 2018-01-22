@@ -7,22 +7,31 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Coin")
-public class CoinEntity {
+public class Coin {
 	
 	@Id
     private String name;
 
-	@Column
-    private Long value;
+	@Column(name = "curr_value")
+    private Long currentValue;
 	
-	public CoinEntity() {
-		
+	@Column(name = "prev_value")
+    private Long previousValue;
+	
+	public Long getPreviousValue() {
+		return previousValue;
 	}
 
-	public CoinEntity(String name, Long value) {
+	public void setPreviousValue(Long previousValue) {
+		this.previousValue = previousValue;
+	}
+
+	public Coin() {}
+
+	public Coin(String name, Long value) {
 		super();
 		this.name = name;
-		this.value = value;
+		this.currentValue = value;
 	}
 
 	public String getName() {
@@ -34,11 +43,11 @@ public class CoinEntity {
 	}
 
 	public Long getValue() {
-		return value;
+		return currentValue;
 	}
 
 	public void setValue(Long value) {
-		this.value = value;
+		this.currentValue = value;
 	}
 	
 	
