@@ -1,7 +1,10 @@
 package com.trading.app.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,16 +19,22 @@ public class Controller {
 	@Autowired
 	CoinService service;
 	
-//	public Controller(CoinRepository coinRepository) {
-//        this.coinRepository = coinRepository;
-//    }
-	
-	@RequestMapping(value = "/save/{name}/{value}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@GetMapping(value = "/save/{name}/{value}")
 	public Coin saveCoin(@PathVariable final String name, @PathVariable final Long value) {
-		
-		return service.saveCoin(new Coin(name, value));
-		
+		return service.save(new Coin(name, value));
 	}
 	
+	@GetMapping(value = "/get/{name}")
+	public Coin getCoin(@PathVariable final String name) {
+		return service.findByName(name);
+	}
+	
+	@GetMapping(value = "/get")
+	public List<String> getAll() {
+		return service.findAll()
+				.stream()
+				.map(coin -> coin.getName())
+				.collect(Collectors.toList());
+	}
 
 }
