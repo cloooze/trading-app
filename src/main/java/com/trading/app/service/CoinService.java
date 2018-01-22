@@ -26,5 +26,9 @@ public class CoinService {
 		return coinRepository.findAll();
 	}
 	
+	public Coin update(Coin coin) {
+		return coinRepository.save(coin);
+	}
+	
 
 }

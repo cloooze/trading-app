@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +23,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import com.trading.app.domain.Coin;
 import com.trading.app.domain.RestErrorInfo;
+import com.trading.app.exception.DataFormatException;
 import com.trading.app.exception.ResourceNotFoundException;
 import com.trading.app.service.CoinService;
 
@@ -57,6 +59,13 @@ public class Controller {
 		return service.findAll();
 	}
 	
+	@PutMapping(value = "/update/{name}")
+	public Coin update(@PathVariable final String name, @RequestBody final Coin coin) {
+		if (coin.getName().equals(name))
+			return service.update(coin);
+		throw new DataFormatException("gli id non matchano!");
+	}
+	
 	//Exception handler - move to AbstractController
 	@ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(ResourceNotFoundException.class)
@@ -66,6 +75,16 @@ public class Controller {
         log.info("ResourceNotFoundException handler:" + ex.getMessage());
 
         return new RestErrorInfo(ex, "Sorry I couldn't find it.");
+    }
+	
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(DataFormatException.class)
+    public
+    @ResponseBody
+    RestErrorInfo handleDataStoreException(DataFormatException ex, WebRequest request, HttpServletResponse response) {
+        log.info("Converting Data Store exception to RestResponse : " + ex.getMessage());
+
+        return new RestErrorInfo(ex, "You messed up.");
     }
 
 }
