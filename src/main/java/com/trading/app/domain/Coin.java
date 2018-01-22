@@ -1,4 +1,4 @@
-package com.trading.app.entity;
+package com.trading.app.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

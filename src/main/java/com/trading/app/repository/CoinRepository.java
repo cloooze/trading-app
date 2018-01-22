@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.trading.app.entity.Coin;
+import com.trading.app.domain.Coin;
 
 public interface CoinRepository extends JpaRepository<Coin, Long> {
 
