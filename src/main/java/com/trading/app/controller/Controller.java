@@ -70,25 +70,7 @@ public class Controller {
 		throw new DataFormatException("gli id non matchano!");
 	}
 	
-	//Exception handler - move to AbstractController
-	@ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public
-    @ResponseBody
-    RestErrorInfo handleResourceNotFoundException(ResourceNotFoundException ex, WebRequest request, HttpServletResponse response) {
-        log.info("ResourceNotFoundException handler:" + ex.getMessage());
-
-        return new RestErrorInfo(ex, "Sorry I couldn't find it.");
-    }
+	//Exception handlers - move to AbstractController
 	
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(DataFormatException.class)
-    public
-    @ResponseBody
-    RestErrorInfo handleDataStoreException(DataFormatException ex, WebRequest request, HttpServletResponse response) {
-        log.info("Converting Data Store exception to RestResponse : " + ex.getMessage());
-
-        return new RestErrorInfo(ex, "You messed up.");
-    }
 
 }
